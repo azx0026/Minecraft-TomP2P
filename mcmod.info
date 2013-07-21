@@ -1,0 +1,17 @@
+[
+{
+  "modid": "TomP2P",
+  "name": "TomP2P",
+  "description": "Implementation of the P2P API using the external library TomP2P.",
+  "version": "1.0.0",
+  "mcversion": "1.5.2",
+  "logoFile": "",
+  "url": "https://github.com/Nauja/Minecraft-TomP2P",
+  "updateUrl": "",
+  "authors": ["Nauja"],
+  "credits": "",
+  "requiredMods": ["P2P"],
+  "screenshots": [],
+  "dependencies": ["P2P"]
+}
+]
