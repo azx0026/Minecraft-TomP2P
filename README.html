@@ -1,0 +1,148 @@
+<h1>TomP2P</h1>
+
+<blockquote>
+<p>Implementation of the P2P API using the external library TomP2P.</p>
+</blockquote>
+
+<p>This mod is a <code>provider</code> for the <a href="https://github.com/Nauja/Minecraft-P2P">P2P</a> mod. It relies on the external library <a href="http://tomp2p.net/">TomP2P</a> to implement the peer-to-peer functionalities. It takes care of setting up the peer-to-peer network server-side and joining it client-side.</p>
+
+<h2>In-Depth</h2>
+
+<p>For the P2P network to work, it requires a master peer known by all the others peers wanting to join the network. Here, the master peer is the Minecraft server and the others are the players.</p>
+
+<p>On server-side, this mod hides all the process of starting the master peer. To make it easier for the players to join the network, it also takes care of sending some informations as the <code>ip address</code> and the <code>port</code> to players connecting to the Minecraft server so that they don't have to configure it by themselves. The master peer can be configured via the <code>TomP2P.cfg</code> described below.</p>
+
+<p>On client-side, this mod hides all the process of starting a peer and joining the P2P network when informations from the master peer have been received. This way, players don't have to make a separate configuration for each server and don't have to search for these informations.</p>
+
+<h2>How to install it</h2>
+
+<h3>Client</h3>
+
+<ol>
+<li>Make sure to have <a href="http://www.minecraftforge.net/wiki/Installation/Universal">Forge</a> installed.</li>
+<li>Installs the <a href="https://github.com/Nauja/Minecraft-P2P">P2P</a> mod.</li>
+<li>Downloads the <code>lib.zip</code> and put its content into <code>.minecraft/mods</code>.</li>
+<li>Downloads the latest <code>TomP2P-x.x.x-x.x.x.zip</code> and put it into <code>.minecraft/mods</code>.</li>
+<li>It's done.</li>
+</ol><h3>Server</h3>
+
+<ol>
+<li>Make sure to have <a href="http://www.minecraftforge.net/wiki/Installation/Universal">Forge</a> installed.</li>
+<li>Installs the <a href="https://github.com/Nauja/Minecraft-P2P">P2P</a> mod.</li>
+<li>Downloads the <code>lib.zip</code> and put its content into <code>yourserver/mods</code>.</li>
+<li>Downloads the latest <code>TomP2P-x.x.x-x.x.x.zip</code> and put it into <code>yourserver/mods</code>.</li>
+<li>It's done.</li>
+</ol><h2>Download</h2>
+
+<p><a href="https://github.com/Nauja/Minecraft-TomP2P/releases">Releases</a></p>
+
+<h2>Configuration</h2>
+
+<p>As it can sometime be difficult to correctly configure network applications, the configurations showed below are real and working configurations that were used to test this mod.</p>
+
+<p>The server was hosted on a computer with:</p>
+
+<ul>
+<li>LAN address: 192.168.1.12</li>
+<li>WAN address: arena.servequake.com</li>
+<li>Minecraft port: 25565</li>
+<li>P2P port: 4000</li>
+</ul><p>The client was on the same computer with:</p>
+
+<ul>
+<li>LAN address: 192.168.1.12</li>
+<li>P2P port: 4001</li>
+</ul><p>Advices:</p>
+
+<ul>
+<li>The LAN address is the local address displayed by <code>ipconfig</code> or <code>ifconfig</code>. The WAN address is a <code>no-ip</code> address redirecting to the real WAN address displayed on <a href="http://www.mywanip.com/">mywanip</a>.</li>
+<li>Note that the two P2P ports need to be differents if the client and the server are on the same computer. Otherwise, the client and the server will try to listen on the same port.</li>
+<li>For the same reason, the P2P port and the Minecraft port need to be differents.</li>
+<li>Both the P2P port and Minecraft port must be opened server-side or players won't be able to reach the server.</li>
+<li>The P2P port doesn't need to be opened client-side.</li>
+</ul><h3>Client</h3>
+
+<p>The configuration file <code>TomP2P.cfg</code> can be found in the <code>.minecraft/config</code> folder. It contains the following:</p>
+
+<pre><code># Configuration file
+
+####################
+# client
+####################
+
+client {
+    S:Address=192.168.1.12
+    B:BehindFirewall=false
+    I:Port=4001
+    S:Storage=memory
+}
+</code></pre>
+
+<ul>
+<li>client
+
+<ul>
+<li>Address: LAN address.</li>
+<li>BehindFirewall: if you are behind a firewall.
+
+<ul>
+<li>true: you are behind a firewall.</li>
+<li>false: you are not.</li>
+</ul>
+</li>
+<li>Port: port to listen to.</li>
+<li>Storage: method used for storage.
+
+<ul>
+<li>memory: data are stored in memory.</li>
+<li>absolute/path/to/folder: data are stored on disk.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul><h3>Server</h3>
+
+<p>The configuration file <code>TomP2P.cfg</code> can be found in the <code>yourserver/config</code> folder. It contains the following:</p>
+
+<pre><code># Configuration file
+
+####################
+# server
+####################
+
+server {
+    S:Address=192.168.1.12
+    B:BehindFirewall=true
+    S:ExternalAddress=arena.servequake.com
+    I:Port=4000
+    S:Storage=none
+}
+</code></pre>
+
+<ul>
+<li>server
+
+<ul>
+<li>Address: LAN address.</li>
+<li>BehindFirewall: if you are behind a firewall.
+
+<ul>
+<li>true: you are behind a firewall.</li>
+<li>false: you are not.</li>
+</ul>
+</li>
+<li>ExternalAddress: WAN address.</li>
+<li>Port: port to listen to.</li>
+<li>Storage: method used for storage.
+
+<ul>
+<li>none: data are not stored.</li>
+<li>memory: data are stored in memory.</li>
+<li>absolute/path/to/folder: data are stored on disk.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul><h2>Bugs</h2>
+
+<p>Feel free to report any bug <a href="https://github.com/Nauja/Minecraft-TomP2P/issues">here</a>.</p>
